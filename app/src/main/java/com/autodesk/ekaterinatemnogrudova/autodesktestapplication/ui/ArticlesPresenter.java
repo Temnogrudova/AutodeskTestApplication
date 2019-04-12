@@ -21,11 +21,13 @@ public class ArticlesPresenter implements ArticlesContract.Presenter {
     private ArticlesContract.View mView;
     private Disposable mDisposable;
     private IScheduler mScheduler;
+    private NewsService mNewsService;
 
-    public ArticlesPresenter(ArticlesContract.View view, IScheduler scheduler) {
+    public ArticlesPresenter(ArticlesContract.View view, NewsService newsService, IScheduler scheduler) {
         mView = view;
         mView.setPresenter(this);
         mScheduler = scheduler;
+        mNewsService = newsService;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class ArticlesPresenter implements ArticlesContract.Presenter {
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = df.format(c);
-        mDisposable = NewsService.getInstance().getArticles(QUERY_BITCOIN, formattedDate, QUERY_PUBLISHED, API_KEY)
+        mDisposable = mNewsService.getArticles(QUERY_BITCOIN, formattedDate, QUERY_PUBLISHED, API_KEY)
                     .subscribeOn(mScheduler.io())
                     .observeOn(mScheduler.ui()).subscribeWith(new DisposableObserver<ArticlesResponse>() {
             @Override

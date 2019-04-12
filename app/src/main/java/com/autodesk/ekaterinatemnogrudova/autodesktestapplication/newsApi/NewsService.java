@@ -1,6 +1,7 @@
 package com.autodesk.ekaterinatemnogrudova.autodesktestapplication.newsApi;
 
 
+import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.models.ArticlesResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
+import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
@@ -25,37 +27,31 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
+import retrofit2.http.Query;
 
 public class NewsService {
-    private static NewsApi sINSTANCE = null;
-    private static final Object sInstanceLock = new Object();
-    private static String baseUrl = "https://newsapi.org/";
+    private NewsApi newsApi = null;
+    private String baseUrl = "https://newsapi.org/";
 
-    public static NewsApi getInstance() {
-        if (sINSTANCE == null) {
-            synchronized (sInstanceLock) {
-                if (sINSTANCE == null)
-                {
-                    Gson gson = new GsonBuilder()
-                            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-                            .registerTypeAdapter(DateTime.class, new DateTimeTypeAdapter())
-                            .create();
+    public NewsService() {
 
-                    sINSTANCE = new Retrofit
-                            .Builder()
-                            .baseUrl(baseUrl)
-                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonCustomConverterFactory.create(gson))
-                            .build().create(NewsApi.class);
+            Gson gson = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                    .registerTypeAdapter(DateTime.class, new DateTimeTypeAdapter())
+                    .create();
 
-                }
-            }
+        newsApi =  new Retrofit
+                    .Builder()
+                    .baseUrl(baseUrl)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .addConverterFactory(GsonCustomConverterFactory.create(gson))
+                    .build().create(NewsApi.class);
+
         }
-
-        return sINSTANCE;
+    public Observable<ArticlesResponse> getArticles(String query,String from, String sortBy, String apiKey){
+        return  newsApi.getArticles(query, from, sortBy, apiKey);
     }
-
 }
 
 class GsonCustomConverterFactory extends Converter.Factory {

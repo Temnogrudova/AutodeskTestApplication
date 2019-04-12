@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.R;
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.databinding.ActivityArticlesBinding;
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.models.Article;
+import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.newsApi.NewsService;
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.SchedulerProvider;
 import com.fatboyindustrial.gsonjodatime.Converters;
 import com.google.gson.Gson;
@@ -36,7 +37,7 @@ public class ArticlesActivity extends AppCompatActivity implements ArticlesContr
         mBinder = DataBindingUtil.setContentView(this, R.layout.activity_articles);
         mBinder.toolBar.setTitle(getString(R.string.activity_articles_tool_bar_title));
         setSupportActionBar(mBinder.toolBar);
-        mPresenter = new ArticlesPresenter(this, new SchedulerProvider());
+        mPresenter = new ArticlesPresenter(this, new NewsService(), new SchedulerProvider());
         mBinder.articlesList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mAdapter = new ArticlesAdapter(mArticles, this);
         mBinder.articlesList.setAdapter(mAdapter);
