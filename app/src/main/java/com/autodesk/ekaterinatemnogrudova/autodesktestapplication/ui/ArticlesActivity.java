@@ -24,7 +24,8 @@ import java.util.List;
 import static com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.Constants.BUNDLE_ARTICLE;
 import static com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.Constants.FRAGMENT_ARTICLE;
 
-public class ArticlesActivity extends AppCompatActivity implements ArticlesContract.View,ArticlesAdapter.IArticleClicked {
+public class ArticlesActivity extends AppCompatActivity implements ArticlesContract.View,
+        ArticlesAdapter.IArticleClicked, ArticleFragment.OnBackToArticles {
     ActivityArticlesBinding mBinder;
     private ArticlesContract.Presenter mPresenter;
 
@@ -116,5 +117,10 @@ public class ArticlesActivity extends AppCompatActivity implements ArticlesContr
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void getArticles() {
+        mPresenter.getArticles();
     }
 }

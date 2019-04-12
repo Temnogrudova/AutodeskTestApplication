@@ -1,12 +1,11 @@
 package com.autodesk.ekaterinatemnogrudova.autodesktestapplication.ui;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +28,10 @@ import static com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.C
 public class ArticleFragment extends Fragment{
     private FragmentArticleBinding mBinder;
     private Article mArticle;
+    private OnBackToArticles mOnBackToArticles;
+    public interface OnBackToArticles {
+        void getArticles();
+    }
 
     public static ArticleFragment newInstance() {
         return new ArticleFragment();
@@ -36,6 +39,18 @@ public class ArticleFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mOnBackToArticles = (OnBackToArticles) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement continueConfirmSendMoneyClicked");
+        }
     }
 
     @Nullable
@@ -53,18 +68,18 @@ public class ArticleFragment extends Fragment{
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         ((ArticlesActivity) getActivity()).addBackToToolBar();
         ((ArticlesActivity) getActivity()).mBinder.toolBar.setTitle(mArticle.getTitle());
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         ((ArticlesActivity) getActivity()).removeIconFromToolBar();
         ((ArticlesActivity) getActivity()).mBinder.toolBar.setTitle(getString(R.string.activity_articles_tool_bar_title));
-
+        mOnBackToArticles.getArticles();
     }
 
     private void loadArticle() {
