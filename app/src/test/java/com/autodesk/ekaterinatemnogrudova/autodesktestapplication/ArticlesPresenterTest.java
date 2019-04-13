@@ -31,16 +31,11 @@ public class ArticlesPresenterTest {
     @Mock
     private NewsService newsService;
 
-
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);// required for the "@Mock" annotations
-
-        // Mock scheduler using RxJava TestScheduler.
         testScheduler = new TestScheduler();
         testSchedulerProvider = new TestSchedulerProvider(testScheduler);
-
-        // Make presenter a mock while using mock repository and viewContract created above
         presenter  = new ArticlesPresenter(mView, newsService, testSchedulerProvider);
     }
 
@@ -54,7 +49,6 @@ public class ArticlesPresenterTest {
         mockedResponse.setArticles(articles);
         Mockito.when(newsService.getArticles(any(String.class), any(String.class), any(String.class), any(String.class)))
                 .thenReturn(Observable.just(mockedResponse));
-
         presenter.getArticles();
         testScheduler.triggerActions();
         verify(mView).getArticlesSuccess(mockedResponse.getArticles());
