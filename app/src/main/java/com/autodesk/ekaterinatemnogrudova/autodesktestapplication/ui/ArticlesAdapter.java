@@ -8,20 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.ArticlesInterface;
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.R;
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.models.Article;
 import com.bumptech.glide.Glide;
-
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import jp.wasabeef.glide.transformations.CropTransformation;
-
 import static com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.Constants.DATE_PATTERN;
 
 /**
@@ -29,8 +23,7 @@ import static com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.C
  */
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.BindingHolder> implements ArticlesInterface {
-
-    private List<Article> mArticles = new ArrayList<>();
+    private List<Article> mArticles;
     private IArticleClicked mListener;
 
     public interface IArticleClicked {
@@ -44,14 +37,12 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Bindin
 
     @Override
     public ArticlesAdapter.BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         final ViewDataBinding binding = DataBindingUtil
                 .inflate(LayoutInflater.from(parent.getContext()), R.layout.layout_article_view_item, parent, false);
 
         ArticlesAdapter.BindingHolder holder = new ArticlesAdapter.BindingHolder(binding.getRoot());
         holder.setBinding(binding);
         holder.setClickedListener(this);
-
         return holder;
     }
 

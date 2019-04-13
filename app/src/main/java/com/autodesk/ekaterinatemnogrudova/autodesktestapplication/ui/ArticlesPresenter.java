@@ -1,18 +1,14 @@
 package com.autodesk.ekaterinatemnogrudova.autodesktestapplication.ui;
 
 import android.util.Log;
-
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.models.ArticlesResponse;
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.newsApi.NewsService;
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.IScheduler;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
-
 import static com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.Constants.API_KEY;
 import static com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.Constants.QUERY_BITCOIN;
 import static com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.Constants.QUERY_PUBLISHED;

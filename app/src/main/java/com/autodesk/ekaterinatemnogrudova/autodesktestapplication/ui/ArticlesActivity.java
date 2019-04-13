@@ -6,9 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.R;
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.databinding.ActivityArticlesBinding;
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.models.Article;
@@ -93,12 +91,14 @@ public class ArticlesActivity extends AppCompatActivity implements ArticlesContr
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
     }
+
     public void addBackToToolBar() {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white);
         }
     }
+
     @Override
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 0) {

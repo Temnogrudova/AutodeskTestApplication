@@ -1,7 +1,6 @@
 package com.autodesk.ekaterinatemnogrudova.autodesktestapplication.models;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 public class ArticlesResponse {

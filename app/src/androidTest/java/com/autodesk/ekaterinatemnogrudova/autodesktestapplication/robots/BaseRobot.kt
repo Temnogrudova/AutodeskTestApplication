@@ -75,13 +75,5 @@ open class BaseRobot {
 
     fun isButtonDisabled(viewInteraction: ViewInteraction): ViewInteraction =
             viewInteraction.check(matches(not<View>(isEnabled())))
-/*
-
-    fun isListItemDisplayedWithText(resId: Int, position: Int, text: String) {
-        onView(EspressoUITestManager.getInstance().withRecyclerView(resId).atPosition(position))
-                .check(matches(hasDescendant(withText(text))))
-    }
-
-*/
 
 }

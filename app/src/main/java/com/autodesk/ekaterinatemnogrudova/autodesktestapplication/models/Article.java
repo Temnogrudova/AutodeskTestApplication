@@ -1,10 +1,7 @@
 package com.autodesk.ekaterinatemnogrudova.autodesktestapplication.models;
 
 import com.google.gson.annotations.SerializedName;
-
 import org.joda.time.DateTime;
-
-import retrofit2.http.Url;
 
 public class Article {
     @SerializedName("source")

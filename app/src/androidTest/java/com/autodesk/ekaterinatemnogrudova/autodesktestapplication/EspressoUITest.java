@@ -1,19 +1,14 @@
 package com.autodesk.ekaterinatemnogrudova.autodesktestapplication;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
+
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.ui.ArticlesActivity;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Instrumented test, which will execute on an Android device.

@@ -1,8 +1,5 @@
 package com.autodesk.ekaterinatemnogrudova.autodesktestapplication;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
 
 public class EspressoUITestConstants
 {

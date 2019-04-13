@@ -1,6 +1,7 @@
 package com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils;
 
 public class Constants {
+    public static final String BASE_URL = "https://newsapi.org/";
     public static final String BUNDLE_ARTICLE = "BUNDLE_ARTICLE";
     public static final String FRAGMENT_ARTICLE = "FRAGMENT_ARTICLE";
     public static final String DATE_PATTERN = "EEE, dd MMM yyyy - HH:mm";

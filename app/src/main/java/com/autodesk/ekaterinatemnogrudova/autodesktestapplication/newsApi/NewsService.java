@@ -8,17 +8,13 @@ import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
-
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -27,29 +23,27 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-import retrofit2.http.Query;
+import static com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.Constants.BASE_URL;
 
 public class NewsService {
-    private NewsApi newsApi = null;
-    private String baseUrl = "https://newsapi.org/";
+    private NewsApi newsApi;
 
     public NewsService() {
-
-            Gson gson = new GsonBuilder()
+        Gson gson = new GsonBuilder()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
                     .registerTypeAdapter(DateTime.class, new DateTimeTypeAdapter())
                     .create();
 
         newsApi =  new Retrofit
                     .Builder()
-                    .baseUrl(baseUrl)
+                    .baseUrl(BASE_URL)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonCustomConverterFactory.create(gson))
                     .build().create(NewsApi.class);
+    }
 
-        }
-    public Observable<ArticlesResponse> getArticles(String query,String from, String sortBy, String apiKey){
+    public Observable<ArticlesResponse> getArticles(String query,String from, String sortBy, String apiKey) {
         return  newsApi.getArticles(query, from, sortBy, apiKey);
     }
 }

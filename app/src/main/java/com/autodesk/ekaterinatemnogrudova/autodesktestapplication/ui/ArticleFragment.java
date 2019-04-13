@@ -1,6 +1,5 @@
 package com.autodesk.ekaterinatemnogrudova.autodesktestapplication.ui;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
@@ -15,7 +14,6 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.R;
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.databinding.FragmentArticleBinding;
 import com.autodesk.ekaterinatemnogrudova.autodesktestapplication.models.Article;
@@ -28,9 +26,6 @@ import static com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.C
 public class ArticleFragment extends Fragment{
     private FragmentArticleBinding mBinder;
     private Article mArticle;
-    public interface OnBackToArticles {
-        void getArticles();
-    }
 
     public static ArticleFragment newInstance() {
         return new ArticleFragment();
