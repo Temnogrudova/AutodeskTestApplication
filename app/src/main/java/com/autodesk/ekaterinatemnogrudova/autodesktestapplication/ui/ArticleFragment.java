@@ -28,7 +28,6 @@ import static com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.C
 public class ArticleFragment extends Fragment{
     private FragmentArticleBinding mBinder;
     private Article mArticle;
-    private OnBackToArticles mOnBackToArticles;
     public interface OnBackToArticles {
         void getArticles();
     }
@@ -39,18 +38,6 @@ public class ArticleFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            mOnBackToArticles = (OnBackToArticles) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement continueConfirmSendMoneyClicked");
-        }
     }
 
     @Nullable
@@ -67,26 +54,10 @@ public class ArticleFragment extends Fragment{
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        ((ArticlesActivity) getActivity()).addBackToToolBar();
-        ((ArticlesActivity) getActivity()).mBinder.toolBar.setTitle(mArticle.getTitle());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        ((ArticlesActivity) getActivity()).removeIconFromToolBar();
-        ((ArticlesActivity) getActivity()).mBinder.toolBar.setTitle(getString(R.string.activity_articles_tool_bar_title));
-        mOnBackToArticles.getArticles();
-    }
-
     private void loadArticle() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mBinder.webview.setWebContentsDebuggingEnabled(true);
         }
-        //mBinder.webview.getSettings().setJavaScriptEnabled(true);
         mBinder.webview.getSettings().setLoadWithOverviewMode(true);
         mBinder.webview.getSettings().setUseWideViewPort(true);
 

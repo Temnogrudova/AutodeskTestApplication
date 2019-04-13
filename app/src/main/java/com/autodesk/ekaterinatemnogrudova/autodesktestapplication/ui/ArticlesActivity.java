@@ -25,7 +25,7 @@ import static com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.C
 import static com.autodesk.ekaterinatemnogrudova.autodesktestapplication.utils.Constants.FRAGMENT_ARTICLE;
 
 public class ArticlesActivity extends AppCompatActivity implements ArticlesContract.View,
-        ArticlesAdapter.IArticleClicked, ArticleFragment.OnBackToArticles {
+        ArticlesAdapter.IArticleClicked{
     ActivityArticlesBinding mBinder;
     private ArticlesContract.Presenter mPresenter;
 
@@ -60,6 +60,8 @@ public class ArticlesActivity extends AppCompatActivity implements ArticlesContr
 
     @Override
     public void onArticleClick(Article currentArticle) {
+        addBackToToolBar();
+        mBinder.toolBar.setTitle(currentArticle.getTitle());
         ArticleFragment articleFragment = ArticleFragment.newInstance();
         Bundle articleItem = new Bundle();
         final Gson gson = Converters.registerDateTime(new GsonBuilder()).create();
@@ -81,14 +83,11 @@ public class ArticlesActivity extends AppCompatActivity implements ArticlesContr
 
     @Override
     public void getArticlesSuccess(List<Article> result) {
+        mArticles.clear();
         mArticles.addAll(result);
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mAdapter.refreshList(mArticles);
-            }
-        });
+        mAdapter.refreshList(mArticles);
     }
+
     public void removeIconFromToolBar() {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -104,6 +103,9 @@ public class ArticlesActivity extends AppCompatActivity implements ArticlesContr
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();
+            removeIconFromToolBar();
+            mBinder.toolBar.setTitle(getString(R.string.activity_articles_tool_bar_title));
+            mPresenter.getArticles();
         } else {
             super.onBackPressed();
         }
@@ -117,10 +119,5 @@ public class ArticlesActivity extends AppCompatActivity implements ArticlesContr
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void getArticles() {
-        mPresenter.getArticles();
     }
 }
